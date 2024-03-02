@@ -1,0 +1,7 @@
+{
+  "name": "Paws-&-Claws",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
