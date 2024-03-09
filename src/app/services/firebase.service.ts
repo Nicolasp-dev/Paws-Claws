@@ -17,6 +17,10 @@ import {
   getDoc,
   addDoc,
   collection,
+  collectionData,
+  query,
+  updateDoc,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { UtilsService } from './utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -25,6 +29,7 @@ import {
   uploadString,
   ref,
   getDownloadURL,
+  deleteObject,
 } from 'firebase/storage';
 
 @Injectable({
@@ -67,7 +72,20 @@ export class FirebaseService {
     return setDoc(doc(getFirestore(), path), data);
   }
 
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(getFirestore(), path), data);
+  }
+
+  deleteDocument(path: string) {
+    return deleteDoc(doc(getFirestore(), path));
+  }
+
   // === RETRIEVE DATA === //
+  getCollection(path: string, collectionQuery?: any) {
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionQuery), { idField: 'id' });
+  }
+
   async getDocument(path: string): Promise<DocumentData | undefined> {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
@@ -91,5 +109,13 @@ export class FirebaseService {
         return getDownloadURL(ref(getStorage(), path));
       }
     );
+  }
+
+  async getFilePath(url: string) {
+    return ref(getStorage(), url).fullPath;
+  }
+
+  deleteFile(path: string) {
+    return deleteObject(ref(getStorage(), path));
   }
 }

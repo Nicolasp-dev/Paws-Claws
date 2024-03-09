@@ -1,4 +1,7 @@
-<app-header title="Agregar Producto" [isModal]="true"></app-header>
+<app-header
+  [title]="product ? 'Actualizar Producto' : 'Agregar Producto'"
+  [isModal]="true"
+></app-header>
 <ion-content>
   <form
     class="ion-padding ion-text-center"
@@ -88,7 +91,7 @@
       mode="ios"
       class="ion-margin"
     >
-      Agregar Producto
+      {{ product ? "Actualizar Producto" : "Agregar Producto" }}
       <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
     </ion-button>
   </form>

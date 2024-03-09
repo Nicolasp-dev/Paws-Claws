@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  AlertController,
+  AlertOptions,
   LoadingController,
   ModalController,
   ModalOptions,
@@ -18,6 +20,7 @@ export class UtilsService {
   toastCtrl = inject(ToastController);
   router = inject(Router);
   modalCtrl = inject(ModalController);
+  alertCtrl = inject(AlertController);
 
   // ==== Loading ==== //
   loading() {
@@ -65,5 +68,11 @@ export class UtilsService {
       promptLabelPhoto: 'Selecciona una foto',
       promptLabelPicture: 'Toma una foto',
     });
+  }
+
+  async presentAlert(opts?: AlertOptions) {
+    const alert = await this.alertCtrl.create(opts);
+
+    await alert.present();
   }
 }

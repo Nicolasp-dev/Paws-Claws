@@ -1,6 +1,43 @@
 <app-header title="Inicio"></app-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-list>
+    <ion-item-sliding class="product-item" *ngFor="let product of products">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="product.image" />
+        </ion-avatar>
+        <ion-label>
+          <div class="name">{{product.name}}</div>
+          <div class="data">
+            <strong>Precio:</strong>{{product.price | currency: 'USD'}} <br />
+            <strong>Unidades vendidas:</strong>{{product.soldUnits}}
+          </div>
+
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label
+              >Ganacia: {{product.price * product.soldUnits | currency:
+              'USD'}}</ion-label
+            >
+          </ion-chip>
+        </ion-label>
+      </ion-item>
+
+      <!-- Options -->
+      <ion-item-options>
+        <!-- Update -->
+        <ion-item-option (click)="addUpdateProduct(product)">
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <!-- Delete -->
+        <ion-item-option color="danger" (click)="confirmDeleteProduct(product)">
+          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Nuevo producto -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addUpdateProduct()">
       <ion-icon name="add"></ion-icon>
